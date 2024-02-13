@@ -2,4 +2,41 @@
 
 20.238.183.69
 
-Server=<bus-server687612>.database.windows.net,1433;Initial Catalog=bus-db;User Id=cloudadmin;Password=Hdalcatayv!31;Connection Timeout=30;
+Server=bus-server687612.database.windows.net,1433;Initial Catalog=bus-db;User Id=cloudadmin;Password=Hdalcatayv!31;Connection Timeout=30;
+
+TERM=dumb
+sqlcmd -S bus-server687612.database.windows.net -P 'Hdalcatayv!31' -U cloudadmin -d bus-db
+
+$resourceGroupName = "learn-c6105cab-f577-477e-878e-ec6d4e98d65b"
+$resourceGroup = Get-AzResourceGroup | Where ResourceGroupName -like $resourceGroupName
+$uniqueID = Get-Random -Minimum 100000 -Maximum 1000000
+$location = $resourceGroup.Location
+# Azure function name
+$azureFunctionName = $("azfunc$($uniqueID)")
+# Get storage account name
+$storageAccountName = (Get-AzStorageAccount -ResourceGroup $resourceGroupName).StorageAccountName
+$storageAccountName
+
+cloudshell611768309
+
+$functionApp = New-AzFunctionApp -Name $azureFunctionName `
+    -ResourceGroupName $resourceGroupName -StorageAccount $storageAccountName `
+    -FunctionsVersion 4 -RuntimeVersion 3.9 -Runtime python -Location $location
+
+"""
+JSON del recurso
+{
+    "id": "/subscriptions/010fd40c-687a-4665-bfcf-04bffb0fbadd/resourceGroups/learn-c6105cab-f577-477e-878e-ec6d4e98d65b",
+    "name": "learn-c6105cab-f577-477e-878e-ec6d4e98d65b",
+    "type": "Microsoft.Resources/resourceGroups",
+    "location": "westus",
+    "tags": {
+        "x-created-for": "32e9a334-45ed-42a3-851c-9f8b07d7f46c",
+        "x-created-by": "productsandboxes",
+        "x-module-id": "learn.azure.deploy-backend-apis"
+    },
+    "properties": {
+        "provisioningState": "Succeeded"
+    }
+}
+"""
