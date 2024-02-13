@@ -1,0 +1,5 @@
+(Invoke-WebRequest -Uri "https://ipinfo.io/ip").Content
+
+20.238.183.69
+
+Server=<bus-server687612>.database.windows.net,1433;Initial Catalog=bus-db;User Id=cloudadmin;Password=Hdalcatayv!31;Connection Timeout=30;
